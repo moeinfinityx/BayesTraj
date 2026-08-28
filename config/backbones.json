@@ -1,0 +1,20 @@
+{
+  "vllm_container_digest": "sha256:4ac9b7c6dabc3ec762c0edef4e9245abe98373844da91cc53ee42e5c58280c5b",
+  "backbones": {
+    "qwen35": {
+      "model": "Qwen/Qwen3.5-9B",
+      "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "served_name": "qwen3.5:9b"
+    },
+    "gemma3": {
+      "model": "google/gemma-3-12b-it",
+      "revision": "96b6f1eccf38110c56df3a15bffe176da04bfd80",
+      "served_name": "gemma3:12b"
+    },
+    "gptoss20b": {
+      "model": "openai/gpt-oss-20b",
+      "revision": "6cee5e81ee83917806bbde320786a8fb61efebee",
+      "served_name": "gpt-oss:20b"
+    }
+  }
+}

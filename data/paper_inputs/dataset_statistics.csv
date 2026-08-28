@@ -1,0 +1,6 @@
+dataset,display_name,task_form,evaluated_tasks_per_cell,backbones,seeds,backbone_seed_cells,task_backbone_seed_evaluations,trajectories_per_evaluation,cached_trajectories,per_step_samples
+dbbench,DBBench,database tool use,300,3,3,9,2700,16,43200,1
+hotpotqa,HotpotQA,multi-hop question answering,1000,3,3,9,9000,16,144000,1
+webshop,WebShop,interactive web shopping,200,3,3,9,1800,16,28800,1
+strategyqa,StrategyQA,multi-step strategy question answering,687,3,3,9,6183,16,98928,4
+all,Total,,2187,3,3,36,19683,16,314928,

@@ -1,0 +1,50 @@
+% Required in the main-document preamble (do not also load algorithmic,
+% algorithmicx, algcompatible, or algorithm2e):
+% \usepackage{algorithm}
+% \usepackage[noend]{algpseudocode}
+\begin{algorithm}[t]
+\caption{BayesTraj fitting and inference}
+\label{alg:bayestraj}
+\footnotesize
+\begin{algorithmic}
+\Require Target cost ratio $\rho$ (default $0.80$) and window width $w$
+(default $4$)
+\Ensure Test-task score $S_i$ and stopping time $T_i$ for the selected mode
+$m\in\{\mathrm{fixed},\mathrm{adaptive}\}$
+\Statex \textbf{Offline fitting (no correctness labels)}
+\ForAll{$i\in\mathcal D_{\mathrm{tr}}$}
+  \State $H_i\gets h(\bar q_i)$
+\EndFor
+\ForAll{supported prefix lengths $n\geq2$}
+  \State $\theta_n\gets\Call{FitLG}
+  {\{(Z_{i,n},H_i)\}_{i\in\mathcal D_{\mathrm{tr}}}}$
+  \Comment{Eq.~\eqref{eq:linear-gaussian}}
+\EndFor
+\State $\tau_B\gets\Call{CalibrateCost}
+{\mathcal D_{\mathrm{val}},\theta_{2:B},\rho}$
+\Comment{Eq.~\eqref{eq:threshold-calibration}}
+\Statex \textbf{Online prefix inference for test task $x_i$}
+\State $c_{i,0}\gets\mathbf 0$
+\For{$n=1,\ldots,B$}
+  \State $\tau_{i,n}\gets\Call{ExecuteAgent}{x_i}$
+  \State $o_{i,n}\gets g(\tau_{i,n},x_i)$; update $c_{i,n}$
+  \If{$n\geq2$}
+    \State $Z_{i,n}\gets\Call{TrajectoryFeatures}{\tau_{i,1:n}}$
+    \State $p_0\gets\Call{CountEntropyPrior}{c_{i,n},h}$
+    \Comment{Eqs.~\eqref{eq:dirichlet-counts}--\eqref{eq:entropy-pushforward}}
+    \State $p_n\gets\Call{FuseOnGrid}{p_0,Z_{i,n},\theta_n,\mathcal G}$
+    \Comment{Eq.~\eqref{eq:posterior-fusion}}
+    \State $(\mu_{i,n},\sigma_{i,n}^2)\gets\Call{Moments}{p_n}$
+    \State $S_{i,n}\gets\mu_{i,n}-1.96\sigma_{i,n}$
+    \Comment{Eq.~\eqref{eq:lcb-score}}
+    \If{$m=\mathrm{adaptive}$ and $n\in\mathcal W_B^{-}$}
+      \If{$\sigma_{i,n}^2\leq\tau_B$}
+        \Comment{Eq.~\eqref{eq:adaptive-stop}}
+        \State \Return $(S_{i,n},n)$
+      \EndIf
+    \EndIf
+  \EndIf
+\EndFor
+\State \Return $(S_{i,B},B)$ \hfill\emph{fixed or adaptive fallback}
+\end{algorithmic}
+\end{algorithm}

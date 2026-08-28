@@ -1,0 +1,30 @@
+{
+  "submission": "BayesTraj-Aug-21-submission.pdf",
+  "datasets": ["dbbench", "hotpotqa", "webshop", "strategyqa"],
+  "backbones": ["qwen35", "gemma3", "gptoss20b"],
+  "seeds": [101, 202, 303],
+  "budgets": [3, 4, 6, 8, 12, 16],
+  "reference_trajectories": 16,
+  "crossfit_folds": 5,
+  "entropy_grid_points": 257,
+  "feature_dimension": 10,
+  "kappa": 1.96,
+  "adaptive_cost_ratio": 0.80,
+  "adaptive_window": 4,
+  "fixed_method": "BR-LG-Risk-VC4-LCB95",
+  "adaptive_method": "BR-LG-VarStop80-LCB95",
+  "paper_names": {
+    "BR-LG-Risk-VC4-LCB95": "BayesTraj-Fixed",
+    "BR-LG-VarStop80-LCB95": "BayesTraj-Adaptive",
+    "BSE-Ciosek-Fixed": "BSE-Fixed",
+    "BSE-Ciosek-Adaptive": "BSE-Adaptive"
+  },
+  "baselines": [
+    "PPL", "PE", "SentSAR", "LS", "SE", "SNNE", "KLE", "Degree",
+    "EigV", "SD", "CoCoA-MaxProb", "CoCoA-PPL", "MC-OE",
+    "BSE-Ciosek-Fixed", "BSE-Ciosek-Adaptive", "SAUP", "UProp"
+  ],
+  "webshop_mapping": "constraint-pattern",
+  "webshop_gamma": 0.25
+}
+

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "manifest": "config/bayestraj_raw_generation_manifest.json",
+  "manifest_sha256": "fa2582b0089b3964f0802dfbe8c1a4e2015f3f9c05d5b51324ec30d5b2b65dc2",
+  "dataset_sources": {
+    "strategyqa": {
+      "dataset_name": "ChilleD/StrategyQA",
+      "split": "test",
+      "revision": "705562638fe1d8ca6bb98c66fc8f94d45fda8c83",
+      "selected_count": 687,
+      "selected_ids_sha256": "cde081d3363bd5cad0f6a32e90a22a8f35a87e3aa7faf7ae120e1a0c8fec313e",
+      "selected_rows_sha256": "f12c83fd9e041256b4f559eb4274b54cd61f913be23f37bc20d1303badd5db5b"
+    },
+    "hotpotqa": {
+      "dataset_name": "hotpotqa/hotpot_qa",
+      "config_name": "distractor",
+      "split": "validation",
+      "revision": "1908d6afbbead072334abe2965f91bd2709910ab",
+      "selected_count": 1000,
+      "selection": "deterministic_prefix",
+      "selected_ids_sha256": "a7b34ce378f1f16728ff55846107a90b4658c5e2b5beceaf6c1ac85130548a91",
+      "selected_rows_sha256": "e113ea84e1b8cf1bf3bfe877e3a89989d7cb68d37516a2d418e2ce787c4f2c3f"
+    },
+    "agentbench": {
+      "dbbench": {"task_name": "dbbench-std", "expected_count": 300},
+      "webshop": {"task_name": "webshop-std", "expected_count": 200}
+    }
+  },
+  "generation": {
+    "temperature": 1.0,
+    "trajectory_samples": 16,
+    "per_step_samples": {"dbbench": 1, "hotpotqa": 1, "webshop": 1, "strategyqa": 4},
+    "correctness_labels_used": false
+  }
+}

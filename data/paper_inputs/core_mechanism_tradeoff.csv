@@ -1,0 +1,6 @@
+contrast,source_key,component,alternative,delta_auroc,delta_aupr,saving_delta
+var_features,trajectory_feature_update,Gaussian trajectory- feature update,Count-only posterior,0.03400498612130855,0.02689360874015033,-0.0008026343794364505
+count_prior_fusion,count_prior_fusion,Count-prior fusion,Trajectory likelihood only,0.05955983303736371,0.04991736230215638,-0.001443654728691566
+full_covariance,full_covariance,Full multivariate covariance,Diagonal covariance,0.004579329521922213,0.006241262349443088,-0.0004918199487393785
+var_vs_fixed,adaptive_stopping,Adaptive variance stopping,Fixed budget,-0.006021806302898491,-0.006320457546383624,0.19899628587906804
+var_vs_nonadaptive,task_adaptive,Task-adaptive allocation,Cost-matched nonadaptive,-0.000402045873510441,0.0010829802646789865,-0.0009996707762772573

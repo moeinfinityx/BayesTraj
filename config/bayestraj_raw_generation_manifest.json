@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "study_id": "bayestraj-aug21-clean-room-generation",
+  "primary_seeds": [101, 202, 303],
+  "sampling_efficiency": {
+    "max_pool_z": 16,
+    "max_pool_n": 4,
+    "paper_budgets": [3, 4, 6, 8, 12, 16],
+    "prefix_policy": "ordered nested prefixes"
+  },
+  "evidence_cells": [
+    {"dataset": "dbbench", "backbone": "qwen35"},
+    {"dataset": "dbbench", "backbone": "gemma3"},
+    {"dataset": "dbbench", "backbone": "gptoss20b"},
+    {"dataset": "hotpotqa", "backbone": "qwen35"},
+    {"dataset": "hotpotqa", "backbone": "gemma3"},
+    {"dataset": "hotpotqa", "backbone": "gptoss20b"},
+    {"dataset": "strategyqa", "backbone": "qwen35"},
+    {"dataset": "strategyqa", "backbone": "gemma3"},
+    {"dataset": "strategyqa", "backbone": "gptoss20b"}
+  ],
+  "webshop_note": "WebShop uses the direct AgentBench runner and is validated separately."
+}
