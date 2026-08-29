@@ -1,0 +1,6 @@
+# Minimal CPU-only environment for frozen-table verification and plotting.
+matplotlib==3.9.4
+numpy==2.0.2
+pandas==2.3.3
+scikit-learn==1.6.1
+pytest==8.4.2

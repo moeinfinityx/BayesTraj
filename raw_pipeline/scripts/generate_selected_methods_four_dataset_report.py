@@ -151,7 +151,7 @@ def aggregate_seed_macro(seed_rows: Sequence[dict[str, Any]]) -> list[dict[str, 
     return result
 
 
-def bucket_webshop_rows() -> list[dict[str, Any]]:
+def bucket_webshop_rows(webshop_bucket_run: Path = WEBSHOP_BUCKET_RUN) -> list[dict[str, Any]]:
     """Reconstruct seed metrics for the requested cached WebShop bucket design."""
     output: list[dict[str, Any]] = []
     method_names = {
@@ -161,7 +161,7 @@ def bucket_webshop_rows() -> list[dict[str, Any]]:
     for backbone in BACKBONES:
         for seed in SEEDS:
             cell = f"webshop-{backbone}-seed{seed}"
-            directory = WEBSHOP_BUCKET_RUN / cell
+            directory = webshop_bucket_run / cell
             manifest = json.loads((directory / "manifest.json").read_text())
             labels = {
                 str(row["sample_id"]): int(row["label_failure"])
@@ -406,6 +406,12 @@ def report(endpoint: Sequence[dict[str, Any]]) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, default=SOURCE)
+    parser.add_argument(
+        "--webshop-root",
+        type=Path,
+        default=WEBSHOP_BUCKET_RUN,
+        help="Directory containing the nine WebShop constraint-pattern cell outputs.",
+    )
     parser.add_argument("--output", type=Path, default=OUTPUT)
     args = parser.parse_args()
     source = args.source.resolve()
@@ -422,7 +428,8 @@ def main() -> None:
         row for row in rows
         if not (row["dataset"] == "webshop" and row["method"] in OURS)
     ]
-    webshop_bucket = bucket_webshop_rows()
+    webshop_bucket_run = args.webshop_root.resolve()
+    webshop_bucket = bucket_webshop_rows(webshop_bucket_run)
     rows.extend(webshop_bucket)
     observed = {row["method"] for row in rows}
     if observed != set(METHODS):
@@ -460,7 +467,7 @@ def main() -> None:
     manifest = {
         "source_report": str(source / "report.md"),
         "source_curve_metrics": str(source / "trajectory_curve_seed_metrics.csv"),
-        "webshop_bucket_task_scores": str(WEBSHOP_BUCKET_RUN / "*/task_scores_without_labels.jsonl.gz"),
+        "webshop_bucket_task_scores": str(webshop_bucket_run / "*/task_scores_without_labels.jsonl.gz"),
         "webshop_bucket_variant_for_our_methods": WEBSHOP_BUCKET_VARIANT,
         "webshop_replaced_methods": list(OURS),
         "webshop_bucket_choice_status": "retrospective performance-leading eligible design; not the preregistered label-free winner",

@@ -2,7 +2,7 @@
 """Evaluate the paper's cached core baselines on all 36 experiment cells.
 
 UProp and Degree are recomputed from the authoritative strict
-Z=8/N=4 pools.  Every baseline in ``Z16_BASELINES`` uses all sixteen ordered
+Z=12/N=4 pools.  Every baseline in ``Z16_BASELINES`` uses all sixteen ordered
 trajectories from the corresponding frozen Z=16 pool.  The script performs no
 trajectory or response generation.
 """
@@ -276,7 +276,7 @@ def main() -> None:
     write_jsonl(output / "task_scores.jsonl", rows)
     write_csv(output / "seed_level_metrics.csv", summarize(rows))
     atomic_text(output / "provenance.json", json.dumps({
-        "protocol": "strict Z=8/N=4 for UProp and Degree; complete Z=16 for all other paper baselines",
+        "protocol": "strict Z=12/N=4 for UProp and Degree; complete Z=16 for all other paper baselines",
         "strict_methods": list(STRICT_METHODS),
         "z16_methods": [*Z16_BASELINES, "MC-OE"],
         "generation_calls": 0,

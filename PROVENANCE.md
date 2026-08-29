@@ -14,7 +14,7 @@ analysis outputs that generated the Aug. 21 submission.
 | `core_mechanism_tradeoff.csv` | `outputs/analysis/brlg_fixed_varstop80_ablation/core_mechanism_tradeoff.csv` | Figure 7 |
 | `sensitivity_summary.csv` and `paired_cell_summary.csv` | `outputs/analysis/brlg_varstop_sensitivity/` | Figure 8 |
 | `posterior_diagnostics_by_dataset_budget.csv`, `posterior_diagnostics_by_cell_budget.csv`, and `posterior_risk_calibration.csv` | `outputs/analysis/bayestraj_empirical_minimal_package/report/` | Figure 9 |
-| `dataset_statistics.csv` | submitted dataset selection contract | README dataset statistics |
+| `dataset_statistics.csv` | submitted dataset selection contract | detailed reproduction protocol |
 | `dataset_backbone_success_rates.csv` | deduplicated task labels from the 36 submitted `brlg_fixed_varstop80_ablation_run` cells | README task-success statistics |
 | `trajectory_step_statistics.csv` | `len(tdp.steps)` over every trajectory in the 36 immutable submitted Z=16 cells | README trajectory-length statistics |
 
@@ -22,8 +22,8 @@ analysis outputs that generated the Aug. 21 submission.
 
 The upstream pipeline used immutable ordered trajectory caches and WebShop
 constraint-pattern bucket artifacts stored outside this repository. Those caches are many orders of
-magnitude larger than this repository and are not copied. README Track B now
-documents how to regenerate equivalent raw pools from an empty external work
+magnitude larger than this repository and are not copied. The guides under
+`docs/` document how to regenerate equivalent raw pools from an empty external work
 directory; `config/backbones.json` and the two
 `config/bayestraj_raw_generation_*.json` files freeze the model revisions,
 dataset revisions and hashes, sample counts, seeds, Z, and N.
